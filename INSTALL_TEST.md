@@ -21,7 +21,7 @@ The KiCad developer documentation lists the default plugin root as `${KICAD_DOCU
 
 ## Configure and Run
 
-On the first run, the add-on creates `returnpath_config.json` beside the project and HTML, JSON, and CSV reports that explain configuration is missing. Copy the contents of `returnpath_config.example.json` into that project file, then replace the example signal and reference net/layer names with exact names from the board. Save and run the action again.
+On the first run, the add-on creates `returnpath_config.json` beside the project and HTML, JSON, and CSV reports. The HTML and JSON reports include the board nets and copper layers exposed by KiCad; the HTML labels inventories as complete or observed-items-only. Copy the contents of `returnpath_config.example.json` into the project file, then replace the example signal and reference net/layer names with exact names from the board. A name that conflicts with a complete board inventory is reported as `NOT_EVALUATED`, not as a zero-coverage review finding. Save and run the action again.
 
 Reports are written beside the project as `returnpath_report.html`, `returnpath_report.json`, and `returnpath_report.csv`. The add-on reads board geometry; it does not change tracks, vias, zones, or other board items. It does write the project configuration and report files.
 
@@ -33,7 +33,7 @@ Run from the package folder:
 python -m unittest discover -s tests -v
 ```
 
-The tests cover polygon holes, arc approximation, route sampling, continuous plane coverage, a slot-induced gap, fail-closed cases, via transitions, wrong-net vias, adapter extraction, JSON/CSV exports, and the JSON fixture. They exercise the analyzer and geometry core, not KiCad's Python bindings.
+The tests cover polygon holes, arc approximation, route sampling, continuous plane coverage, a slot-induced gap, fail-closed cases, via transitions, wrong-net vias, integer and canonical layer names, via-size extraction, board inventory validation, unknown config keys, JSON/CSV exports, and the JSON fixture. They use API-shaped test doubles; they do not exercise KiCad's installed Python bindings.
 
 ## Manual Compatibility Matrix
 
